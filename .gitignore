@@ -1,0 +1,18 @@
+# Python virtual environment (regenerate anytime with: python -m venv venv)
+backend/venv/
+backend/__pycache__/
+*.pyc
+
+# Node dependencies (created in Phase 7 via npm install)
+frontend/node_modules/
+
+# Environment variables / secrets — never commit these
+.env
+backend/.env
+
+# Editor settings (contains your local machine's file paths)
+.vscode/
+
+# OS-generated files
+Thumbs.db
+.DS_Store
