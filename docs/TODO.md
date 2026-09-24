@@ -4,5 +4,9 @@
 - [x] Create folder structure
 - [x] Check installed tools (Node, Python, Git, VS Code)
 - [x] Create Python virtual environment
-- [ ] Point VS Code at the virtual environment (Step 3.4)
-- [ ] Initialize Git repository (Phase 4)
+- [x] Initialize Git repository + push to GitHub
+- [x] Design and build database schema
+- [x] Build backend API (habits + completions endpoints)
+- [x] Build frontend habit list UI (placeholder data)
+- [ ] Connect frontend to real backend data (Phase 8)
+- [ ] Build "add new habit" form (Phase 8/9)
