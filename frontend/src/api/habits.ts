@@ -85,3 +85,17 @@ export async function updateHabit(
     throw new Error('Failed to update habit')
   }
 }
+
+export interface HistoryDay {
+  date: string
+  scheduled: boolean
+  completed: boolean
+}
+
+export async function getHabitHistory(habitId: number): Promise<HistoryDay[]> {
+  const response = await fetch(`${API_BASE}/habits/${habitId}/history`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch habit history')
+  }
+  return response.json()
+}

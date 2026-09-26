@@ -10,7 +10,8 @@
 - Phase 7: React + TypeScript + Tailwind frontend — habit list UI with local toggle state (placeholder data, not yet connected to backend)
 - Phase 8: Full API integration — real habit data on load, checkbox saves/undoes completions (optimistic UI with revert-on-failure), "Add Habit" form with validation. **MVP feature-complete.**
 - Phase 9: Streak counter with grace-based recovery (one missed scheduled day forgiven, two consecutive misses reset it; "today" always treated as pending, never a miss). Isolated algorithm tested with fabricated data before wiring into the real endpoint. Frontend badge shows only for streak
-- Phase 9 (cont'd): Soft-delete UI with confirmation, "Deleted habits" view with real restore, inline habit editing (name + schedule) via HabitRow. All Must Have and Should Have items from Step 1.2 now built except weekly calendar view.
+- Phase 10 (cont'd): Soft-delete UI with confirmation, "Deleted habits" view with real restore, inline habit editing (name + schedule) via HabitRow. All Must Have and Should Have items from Step 1.2 now built except weekly calendar view.
+- Phase 11 (final): Weekly history view (7-day dot strip per habit, green/red/gray for completed/missed/not-scheduled), backed by GET /habits/{id}/history. All Must Have and Should Have items from Step 1.2 are now complete.
 
 ## Current Phase
 Phase 9 — Polish & Should-Have Features

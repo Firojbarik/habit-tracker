@@ -1,5 +1,5 @@
 from typing import List
-from datetime import date as date_type
+from datetime import date as date_type, timedelta
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -135,6 +135,34 @@ def get_todays_habits(db: Session = Depends(get_db)):
             "streak": streak,
         })
     return result
+
+
+@app.get("/habits/{habit_id}/history")
+def get_habit_history(habit_id: int, db: Session = Depends(get_db)):
+    habit = db.query(Habit).filter(Habit.id == habit_id).first()
+    if habit is None:
+        raise HTTPException(status_code=404, detail="Habit not found")
+
+    today = date_type.today()
+    last_7_dates = [today - timedelta(days=i) for i in range(6, -1, -1)]
+
+    completions = db.query(Completion).filter(
+        Completion.habit_id == habit_id,
+        Completion.date.in_(last_7_dates),
+    ).all()
+    completed_dates = {c.date for c in completions}
+
+    scheduled = set(d.strip() for d in habit.scheduled_days.split(","))
+    weekday_map = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
+    return [
+        {
+            "date": d.isoformat(),
+            "scheduled": weekday_map[d.weekday()] in scheduled,
+            "completed": d in completed_dates,
+        }
+        for d in last_7_dates
+    ]
 
 
 @app.delete("/completions/{completion_id}", status_code=204)

@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+- Added weekly history view (7-day completion strip per habit)
+- Fixed: duplicate habit-row rendering, stale weekly-dot state after checking a habit, missing GET /habits/inactive route, untracked SQLite file in Git
 - Added habit delete (soft-delete) with confirmation, restore UI for deleted habits, inline edit for habit name/schedule
 - Added streak calculation (grace-based recovery mechanic) — backend algorithm, isolated tests, API integration, frontend badge display
 - Connected frontend to backend: real habit fetching, completion toggling (check + undo), habit creation form
