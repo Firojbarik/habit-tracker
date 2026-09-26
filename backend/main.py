@@ -11,6 +11,7 @@ from sqlalchemy.exc import IntegrityError
 from models import Habit, Completion
 from schemas import HabitCreate, HabitOut, HabitUpdate, CompletionCreate, CompletionOut, HabitToday
 from fastapi.middleware.cors import CORSMiddleware
+from streaks import calculate_streak
 
 app = FastAPI()
 
@@ -110,12 +111,25 @@ def get_todays_habits(db: Session = Depends(get_db)):
             Completion.date == today,
         ).first()
 
+        all_completions = db.query(Completion).filter(
+            Completion.habit_id == habit.id
+        ).all()
+        completion_dates = {c.date for c in all_completions}
+
+        streak = calculate_streak(
+            scheduled_days=habit.scheduled_days,
+            completion_dates=completion_dates,
+            habit_created_date=habit.created_at.date(),
+            today=today,
+        )
+
         result.append({
             "id": habit.id,
             "name": habit.name,
             "scheduled_days": habit.scheduled_days,
             "completed": completion is not None,
             "completion_id": completion.id if completion else None,
+            "streak": streak,
         })
     return result
 

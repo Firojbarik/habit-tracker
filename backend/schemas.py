@@ -45,3 +45,11 @@ class HabitToday(BaseModel):
     scheduled_days: str
     completed: bool
     completion_id: Optional[int] = None
+
+class HabitToday(BaseModel):
+    id: int
+    name: str
+    scheduled_days: str
+    completed: bool
+    completion_id: Optional[int] = None
+    streak: int
