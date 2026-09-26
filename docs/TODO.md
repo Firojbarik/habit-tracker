@@ -8,5 +8,8 @@
 - [x] Design and build database schema
 - [x] Build backend API (habits + completions endpoints)
 - [x] Build frontend habit list UI (placeholder data)
-- [ ] Connect frontend to real backend data (Phase 8)
-- [ ] Build "add new habit" form (Phase 8/9)
+- [x] Connect frontend to real backend data (Phase 8)
+- [x] Build "add new habit" form (Phase 8/9)
+- [ ] edit/delete habit UI
+- [ ] streak counter display 
+- [ ] weekly calendar view

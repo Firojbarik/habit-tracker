@@ -8,9 +8,10 @@
 - Phase 5: Database schema designed (habits + completions), SQLAlchemy models, SQLite file created
 - Phase 6: FastAPI backend — list/create/update/soft-delete habits, mark completions (duplicate + orphan protection), "today's habits" endpoint
 - Phase 7: React + TypeScript + Tailwind frontend — habit list UI with local toggle state (placeholder data, not yet connected to backend)
+- Phase 8: Full API integration — real habit data on load, checkbox saves/undoes completions (optimistic UI with revert-on-failure), "Add Habit" form with validation. **MVP feature-complete.**
 
 ## Current Phase
-Phase 8 — API Integration (connecting frontend to real backend data)
+Phase 9 — Polish & Should-Have Features
 
 ## MVP Scope (Must Have)
 - Add a new habit
@@ -27,4 +28,4 @@ Phase 8 — API Integration (connecting frontend to real backend data)
 - Frontend components kept "dumb" (data via props) to simplify backend integration
 
 ## Next Step
-Phase 8.1 — Fetching real habits from the backend on page load
+Phase 9.1 — Streak Display

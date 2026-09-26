@@ -10,10 +10,16 @@ from datetime import date as date_type
 from sqlalchemy.exc import IntegrityError
 from models import Habit, Completion
 from schemas import HabitCreate, HabitOut, HabitUpdate, CompletionCreate, CompletionOut, HabitToday
-
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def get_db():
     db = SessionLocal()
@@ -112,3 +118,11 @@ def get_todays_habits(db: Session = Depends(get_db)):
             "completion_id": completion.id if completion else None,
         })
     return result
+
+@app.delete("/completions/{completion_id}", status_code=204)
+def delete_completion(completion_id: int, db: Session = Depends(get_db)):
+    completion = db.query(Completion).filter(Completion.id == completion_id).first()
+    if completion is None:
+        raise HTTPException(status_code=404, detail="Completion not found")
+    db.delete(completion)
+    db.commit()
