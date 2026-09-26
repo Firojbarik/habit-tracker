@@ -3,6 +3,9 @@ backend/venv/
 backend/__pycache__/
 *.pyc
 
+# SQLite database file (created by database.py — regenerate with the create-tables script)
+backend/*.db
+
 # Node dependencies (created in Phase 7 via npm install)
 frontend/node_modules/
 
