@@ -9,6 +9,7 @@
 - Phase 6: FastAPI backend — list/create/update/soft-delete habits, mark completions (duplicate + orphan protection), "today's habits" endpoint
 - Phase 7: React + TypeScript + Tailwind frontend — habit list UI with local toggle state (placeholder data, not yet connected to backend)
 - Phase 8: Full API integration — real habit data on load, checkbox saves/undoes completions (optimistic UI with revert-on-failure), "Add Habit" form with validation. **MVP feature-complete.**
+- Phase 9: Streak counter with grace-based recovery (one missed scheduled day forgiven, two consecutive misses reset it; "today" always treated as pending, never a miss). Isolated algorithm tested with fabricated data before wiring into the real endpoint. Frontend badge shows only for streak > 
 
 ## Current Phase
 Phase 9 — Polish & Should-Have Features

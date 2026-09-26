@@ -1,6 +1,7 @@
 # Changelog
 
 ## [Unreleased]
+- Added streak calculation (grace-based recovery mechanic) — backend algorithm, isolated tests, API integration, frontend badge display
 - Connected frontend to backend: real habit fetching, completion toggling (check + undo), habit creation form
 - MVP Must Haves fully implemented and working end-to-end
 - Built React frontend: habit list UI, Tailwind styling, local checkbox toggle state
