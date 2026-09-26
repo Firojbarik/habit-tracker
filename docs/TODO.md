@@ -12,4 +12,4 @@
 - [x] Build "add new habit" form (Phase 8/9)
 - [x] edit/delete habit UI
 - [x] streak counter display 
-- [x] weekly calendar view
+- [ ] weekly calendar view

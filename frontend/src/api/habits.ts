@@ -41,3 +41,47 @@ export async function createHabit(name: string, scheduledDays: string): Promise<
     throw new Error('Failed to create habit')
   }
 }
+
+export async function deleteHabit(habitId: number): Promise<void> {
+  const response = await fetch(`${API_BASE}/habits/${habitId}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ is_active: false }),
+  })
+  if (!response.ok) {
+    throw new Error('Failed to delete habit')
+  }
+}
+
+export async function getInactiveHabits(): Promise<Habit[]> {
+  const response = await fetch(`${API_BASE}/habits/inactive`)
+  if (!response.ok) {
+    throw new Error('Failed to fetch inactive habits')
+  }
+  return response.json()
+}
+
+export async function restoreHabit(habitId: number): Promise<void> {
+  const response = await fetch(`${API_BASE}/habits/${habitId}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ is_active: true }),
+  })
+  if (!response.ok) {
+    throw new Error('Failed to restore habit')
+  }
+}
+
+export async function updateHabit(
+  habitId: number,
+  updates: { name?: string; scheduled_days?: string }
+): Promise<void> {
+  const response = await fetch(`${API_BASE}/habits/${habitId}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updates),
+  })
+  if (!response.ok) {
+    throw new Error('Failed to update habit')
+  }
+}

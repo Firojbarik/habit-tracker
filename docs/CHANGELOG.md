@@ -1,6 +1,7 @@
 # Changelog
 
 ## [Unreleased]
+- Added habit delete (soft-delete) with confirmation, restore UI for deleted habits, inline edit for habit name/schedule
 - Added streak calculation (grace-based recovery mechanic) — backend algorithm, isolated tests, API integration, frontend badge display
 - Connected frontend to backend: real habit fetching, completion toggling (check + undo), habit creation form
 - MVP Must Haves fully implemented and working end-to-end

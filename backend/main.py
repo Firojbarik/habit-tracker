@@ -1,16 +1,12 @@
 from typing import List
-from fastapi import FastAPI, Depends
-from sqlalchemy.orm import Session
-from database import SessionLocal
-from models import Habit
-from schemas import HabitCreate, HabitOut
-from fastapi import FastAPI, Depends, HTTPException
-from schemas import HabitCreate, HabitOut, HabitUpdate
 from datetime import date as date_type
+from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
+from database import SessionLocal
 from models import Habit, Completion
 from schemas import HabitCreate, HabitOut, HabitUpdate, CompletionCreate, CompletionOut, HabitToday
-from fastapi.middleware.cors import CORSMiddleware
 from streaks import calculate_streak
 
 app = FastAPI()
@@ -21,6 +17,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 def get_db():
     db = SessionLocal()
@@ -38,6 +35,11 @@ def root():
 @app.get("/habits", response_model=List[HabitOut])
 def get_habits(db: Session = Depends(get_db)):
     return db.query(Habit).filter(Habit.is_active == True).all()
+
+
+@app.get("/habits/inactive", response_model=List[HabitOut])
+def get_inactive_habits(db: Session = Depends(get_db)):
+    return db.query(Habit).filter(Habit.is_active == False).all()
 
 
 @app.post("/habits", response_model=HabitOut)
@@ -93,6 +95,7 @@ def create_completion(completion: CompletionCreate, db: Session = Depends(get_db
     db.refresh(new_completion)
     return new_completion
 
+
 @app.get("/habits/today", response_model=List[HabitToday])
 def get_todays_habits(db: Session = Depends(get_db)):
     today = date_type.today()
@@ -132,6 +135,7 @@ def get_todays_habits(db: Session = Depends(get_db)):
             "streak": streak,
         })
     return result
+
 
 @app.delete("/completions/{completion_id}", status_code=204)
 def delete_completion(completion_id: int, db: Session = Depends(get_db)):

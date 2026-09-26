@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react'
 import HabitList from './components/HabitList'
 import AddHabitForm from './components/AddHabitForm'
 import type { Habit } from './types/habit'
-import { getTodaysHabits, createCompletion, deleteCompletion } from './api/habits'
+import { getTodaysHabits, createCompletion, deleteCompletion, deleteHabit } from './api/habits'
+import DeletedHabits from './components/DeletedHabits'
+import { updateHabit } from './api/habits'
+
 
 function App() {
   const [habits, setHabits] = useState<Habit[]>([])
@@ -58,6 +61,33 @@ async function toggleHabit(id: number) {
     }
   }
 }
+async function handleDeleteHabit(id: number) {
+  const habit = habits.find((h) => h.id === id)
+  if (!habit) return
+
+  const confirmed = window.confirm(
+    `Remove "${habit.name}"? Its history will be kept — you can restore it later if needed.`
+  )
+  if (!confirmed) return
+
+  const previousHabits = habits
+  setHabits(habits.filter((h) => h.id !== id))
+
+  try {
+    await deleteHabit(id)
+  } catch {
+    setHabits(previousHabits)
+    alert('Could not delete habit. Please try again.')
+  }
+}
+async function handleEditHabit(id: number, updates: { name: string; scheduled_days: string }) {
+  try {
+    await updateHabit(id, updates)
+    loadHabits()
+  } catch {
+    alert('Could not update habit. Try again.')
+  }
+}
 return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white shadow-sm px-6 py-4">
@@ -67,7 +97,11 @@ return (
         <AddHabitForm onHabitAdded={loadHabits} />
         {loading && <p className="text-gray-500">Loading...</p>}
         {error && <p className="text-red-500">{error}</p>}
-        {!loading && !error && <HabitList habits={habits} onToggle={toggleHabit} />}
+        {!loading && !error && (
+          <>
+            <HabitList habits={habits} onToggle={toggleHabit} onDelete={handleDeleteHabit} onEdit={handleEditHabit} />
+            <DeletedHabits onRestored={loadHabits} />
+          </>) }
       </main>
     </div>
   )
