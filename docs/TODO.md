@@ -11,5 +11,5 @@
 - [x] Connect frontend to real backend data (Phase 8)
 - [x] Build "add new habit" form (Phase 8/9)
 - [x] edit/delete habit UI
-- [x] streak counter display 
-- [ ] weekly calendar view
+- [x] streak counter display
+- [x] weekly calendar view
